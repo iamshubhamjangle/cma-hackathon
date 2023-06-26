@@ -37,13 +37,10 @@ const Content = () => {
 
     let done = false;
 
-    console.log("While not done");
-
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      console.log(chunkValue);
       setResult((prev) => prev + chunkValue);
     }
 
