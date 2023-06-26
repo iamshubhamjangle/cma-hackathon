@@ -13,21 +13,41 @@ const Content = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setResult("");
     setLoading(true);
-    await axios
-      .post("/api/v1", {
+    const response = await fetch("/api/v1", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         userContent: userInput,
-      })
-      .then((res) => {
-        console.log("API response");
-        console.log(res);
-        setResult(res.data.result);
-      })
-      .catch((err) => {
-        toast.error("Something went wrong!");
-        console.log(err);
-      })
-      .finally(() => setLoading(false));
+      }),
+    });
+
+    if (!response.ok) {
+      return toast.error(response.statusText);
+    }
+
+    const data = response.body;
+    if (!data) return;
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+
+    let done = false;
+
+    console.log("While not done");
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      console.log(chunkValue);
+      setResult((prev) => prev + chunkValue);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -65,7 +85,8 @@ const Content = () => {
             <p className="font-bold text-xl">What&apos;s in you mind?</p>
           </div>
         )}
-        {loading && (
+
+        {loading && !result && (
           <div role="status" className="card-body space-y-2.5 animate-pulse">
             <div className="flex items-center w-full space-x-2">
               <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-500 w-32"></div>
@@ -86,7 +107,7 @@ const Content = () => {
           </div>
         )}
 
-        {result && !loading && (
+        {result && (
           <div className="card-body whitespace-pre-line">{result}</div>
         )}
       </div>

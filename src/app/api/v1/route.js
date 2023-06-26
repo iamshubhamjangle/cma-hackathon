@@ -1,3 +1,4 @@
+import { OpenAIStream } from "@/lib/openai-stream";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
@@ -32,24 +33,31 @@ export async function POST(req) {
       messages.push({ role: "assistant", content: reqBody.assistantContent });
     }
 
-    // Create new instance of openAi
-    const openAi = new OpenAIApi(
-      new Configuration({
-        apiKey: process.env.CHAT_GPT_API_KEY,
-      })
-    );
+    const payload = {
+      model: "gpt-3.5-turbo",
+      messages: messages,
+      stream: true,
+    };
+
+    const stream = await OpenAIStream(payload);
+
+    return new Response(stream);
+
+    // // Create new instance of openAi
+    // const openAi = new OpenAIApi(
+    //   new Configuration({
+    //     apiKey: process.env.CHAT_GPT_API_KEY,
+    //   })
+    // );
 
     // Await the response from OpenAI
-    const response = await openAi.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages,
-    });
+    // const response = await openAi.createChatCompletion(payload);
 
-    // Send back the response
-    return NextResponse.json({
-      status: "success",
-      result: response.data.choices[0].message.content,
-    });
+    // // Send back the response
+    // return NextResponse.json({
+    //   status: "success",
+    //   result: response.data.choices[0].message.content,
+    // });
   } catch (e) {
     // Handle Errors
     console.log("----------START---------");
