@@ -69,8 +69,7 @@ const Content = () => {
           )}
         </button>
       </div>
-      <div className="mt-4"></div>
-      <div className="card shadow-md card-bordered border-slate-200 justify-center">
+      <div className="card shadow-md card-bordered border-slate-200 justify-center my-4">
         {!result && !loading && (
           <div className="flex flex-col items-center gap-8 my-16">
             <Image
