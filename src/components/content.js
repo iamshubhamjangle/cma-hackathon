@@ -3,6 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const Content = () => {
   const [result, setResult] = useState("");
