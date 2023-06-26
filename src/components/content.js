@@ -6,7 +6,9 @@ import { useState } from "react";
 
 const Content = () => {
   const [result, setResult] = useState("");
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState(
+    "Help me to write a video script that can help showcase the possible use cases for voice assistant in a car"
+  );
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -30,6 +32,7 @@ const Content = () => {
           placeholder="Type your query here..."
           className="textarea textarea-primary shadow-md border-slate-200 w-full"
           onChange={(e) => setUserInput(e.target.value)}
+          value={userInput}
           autoFocus
         ></textarea>
         <button
