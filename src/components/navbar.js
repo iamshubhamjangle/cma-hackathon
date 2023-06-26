@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
+import ThemeBtn from "./themeBtn";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -125,6 +126,12 @@ const Navbar = () => {
                         >
                           About
                         </a>
+                        <a
+                          className="block px-4 py-2 text-sm hover:bg-base-300 cursor-pointer"
+                          role="menuitem"
+                        >
+                          <ThemeBtn />
+                        </a>
                       </div>
                     </div>
                   )}
@@ -187,18 +194,12 @@ const Navbar = () => {
             >
               About
             </a>
-            {/* <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
-            >
-              About
-            </a>
             <a
               href="#"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
             >
-              About
-            </a> */}
+              <ThemeBtn />
+            </a>
           </div>
         </div>
       )}

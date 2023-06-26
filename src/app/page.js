@@ -1,13 +1,12 @@
 import Content from "@/components/content";
 import Navbar from "@/components/navbar";
-import { Toaster } from "react-hot-toast";
+import Provider from "@/lib/provider";
 
 export default function Home() {
   return (
-    <div>
-      <Toaster />
+    <Provider>
       <Navbar />
       <Content />
-    </div>
+    </Provider>
   );
 }

@@ -22,6 +22,7 @@ module.exports = {
           error: "#e4695e",
         },
       },
+      "dark",
     ],
   },
 };
