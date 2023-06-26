@@ -17,7 +17,11 @@ const Content = () => {
       .post("/api/v1", {
         userContent: userInput,
       })
-      .then((res) => setResult(res.data.result))
+      .then((res) => {
+        console.log("API response");
+        console.log(res);
+        setResult(res.data.result);
+      })
       .catch((err) => {
         toast.error("Something went wrong!");
         console.log(err);
@@ -81,7 +85,9 @@ const Content = () => {
           </div>
         )}
 
-        {result && !loading && <div className="card-body">{result}</div>}
+        {result && !loading && (
+          <div className="card-body whitespace-pre-line">{result}</div>
+        )}
       </div>
     </main>
   );
