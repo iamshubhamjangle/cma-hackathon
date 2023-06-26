@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import React, { useRef, useState, useEffect } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -177,16 +177,26 @@ const Navbar = () => {
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden">
-          <div className="flex flex-wrap px-2 py-2 gap-2">{getLinks()}</div>
+          <div className="flex flex-wrap px-2 gap-2">{getLinks()}</div>
           <div className="px-2 py-3 border-t border-gray-700">
-            <div className="mt-3 px-2 space-y-1">
-              <a
-                href="#"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
-              >
-                About
-              </a>
-            </div>
+            <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
+            >
+              About
+            </a>
+            {/* <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
+            >
+              About
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
+            >
+              About
+            </a> */}
           </div>
         </div>
       )}

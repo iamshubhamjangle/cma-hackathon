@@ -10,7 +10,7 @@ Irure excepteur dolore aute veniam commodo id laborum sit exercitation laborum r
   return (
     <div>
       <Navbar />
-      <main className="px-8 md:px-20 mt-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="">
           <div className="min-h-16">
             <textarea
