@@ -28,8 +28,9 @@ const Content = () => {
       <div className="min-h-16">
         <textarea
           placeholder="Type your query here..."
-          className="textarea textarea-bordered textarea-primary w-full"
+          className="textarea textarea-primary shadow-md border-slate-200 w-full"
           onChange={(e) => setUserInput(e.target.value)}
+          autoFocus
         ></textarea>
         <button
           className="btn btn-primary w-full"
@@ -43,8 +44,8 @@ const Content = () => {
           )}
         </button>
       </div>
-      <div className="mt-8"></div>
-      <div className="card shadow-md justify-center card-bordered border-primary">
+      <div className="mt-4"></div>
+      <div className="card shadow-md card-bordered border-slate-200 justify-center">
         {!result && !loading && (
           <div className="flex flex-col items-center gap-8 my-16">
             <Image
