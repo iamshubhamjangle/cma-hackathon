@@ -5,6 +5,10 @@ export async function GET() {
   return NextResponse.json({ status: "API is up and running!" });
 }
 
+export const config = {
+  runtime: "edge",
+};
+
 export async function POST(req) {
   try {
     const reqBody = await req.json();
