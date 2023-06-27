@@ -18,7 +18,6 @@ const Footer = () => {
           src="/logo.png"
           alt="Logo"
         />
-        <p>Copyright © 2023 - All right reserved</p>
       </div>
       <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
         <a

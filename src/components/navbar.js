@@ -72,7 +72,7 @@ const Navbar = () => {
               <Image className="rounded-full" src="/logo.png" alt="Logo" fill />
             </div>
             <span className="text-lg font-semibold mx-2">
-              Cerence Marketing Assitant
+              Cerence Marketing Assistant
             </span>
           </div>
 
