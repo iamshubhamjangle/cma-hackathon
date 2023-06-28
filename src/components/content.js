@@ -92,6 +92,10 @@ const Content = () => {
               blog page.
             </li>
           </ul>
+          <p className="mt-3 italic">
+            Note: Kindly be aware that the generated responses may contain
+            errors, and it may be necessary to manually verify the facts.
+          </p>
         </div>
       </div>
       {/*
