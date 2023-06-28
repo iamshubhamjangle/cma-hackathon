@@ -70,12 +70,7 @@ const Navbar = () => {
           <Link href="/">
             <div className="flex-shrink-0 flex items-center cursor-pointer">
               <div className="w-8 h-8 relative">
-                <Image
-                  className="rounded-full"
-                  src="/logo.png"
-                  alt="Logo"
-                  fill
-                />
+                <Image src="/logo.png" alt="Logo" fill />
               </div>
               <span className="text-lg font-semibold mx-2">
                 Cerence Marketing Assistant

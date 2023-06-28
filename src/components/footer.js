@@ -11,13 +11,7 @@ const Footer = () => {
     >
       <footer className="flex justify-between max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
         <div className="items-center grid-flow-col">
-          <Image
-            className="rounded-full"
-            width={28}
-            height={28}
-            src="/logo.png"
-            alt="Logo"
-          />
+          <Image width={28} height={28} src="/logo.png" alt="Logo" />
         </div>
         <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
           <a
