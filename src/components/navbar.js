@@ -116,7 +116,7 @@ const Navbar = () => {
                   {/* Dropdown */}
                   {isProfileOpen && (
                     <div
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg ring-1 ring-opacity-5 focus:outline-none bg-base-100"
+                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg ring-1 ring-opacity-5 focus:outline-none bg-base-100 z-10"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
