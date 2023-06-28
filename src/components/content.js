@@ -11,6 +11,7 @@ const Content = () => {
   const [result, setResult] = useState("");
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
   const router = useRouter();
 
   const handleSendClick = async () => {
@@ -64,6 +65,35 @@ const Content = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+      <div
+        className="collapse collapse-plus bg-base-200 cursor-pointer"
+        onClick={() => setChecked((prev) => !prev)}
+      >
+        <input type="radio" checked={checked} />
+        <div className="collapse-title font-medium">
+          Discover how to use the Application:
+        </div>
+        <div className="collapse-content">
+          <ul class="space-y-1 list-disc list-inside">
+            <li>
+              Simply enter your queries, topics, or ideas in the Input box
+              below. The more detailed your query, the more accurate and
+              desirable the generated output will be.
+            </li>
+            <li>
+              For general queries, click the{" "}
+              <span className="font-bold">&quot;Get Results&quot;</span> button
+              to instantly view the results on the same page.
+            </li>
+            <li>
+              To generate a blog based on your desired topic, click the{" "}
+              <span className="font-bold">&quot;Generate a blog&quot;</span>{" "}
+              button. Once the blog is generated, you will be redirected to the
+              blog page.
+            </li>
+          </ul>
+        </div>
+      </div>
       {/*
        ******  GET INPUT & SEND QUERY  ******
        */}
@@ -75,7 +105,11 @@ const Content = () => {
           value={userInput}
           autoFocus
         ></textarea>
-        <Button label="Send" loading={loading} onClick={handleSendClick} />
+        <Button
+          label="Get Results"
+          loading={loading}
+          onClick={handleSendClick}
+        />
         <Button
           style="btn-secondary"
           label="Generate a Blog"
