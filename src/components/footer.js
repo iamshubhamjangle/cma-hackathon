@@ -6,8 +6,7 @@ const Footer = () => {
     <footer
       className="flex justify-between p-4"
       style={{
-        boxShadow:
-          "rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
+        boxShadow: "0px -4px 3px rgba(50, 50, 50, 0.10)",
       }}
     >
       <div className="items-center grid-flow-col">
