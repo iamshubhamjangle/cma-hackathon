@@ -120,12 +120,12 @@ const Navbar = () => {
                       aria-labelledby="user-menu"
                     >
                       <div className="py-1" role="none">
-                        <a
+                        {/* <a
                           className="block px-4 py-2 text-sm hover:bg-base-300 cursor-pointer"
                           role="menuitem"
                         >
                           About
-                        </a>
+                        </a> */}
                         <a
                           className="block px-4 py-2 text-sm hover:bg-base-300 cursor-pointer"
                           role="menuitem"
@@ -188,12 +188,12 @@ const Navbar = () => {
         <div className="md:hidden">
           <div className="flex flex-wrap px-2 gap-2">{getLinks()}</div>
           <div className="px-2 py-3 border-t border-gray-700">
-            <a
+            {/* <a
               href="#"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
             >
               About
-            </a>
+            </a> */}
             <a
               href="#"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
