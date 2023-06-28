@@ -1,21 +1,27 @@
 "use client";
 
-import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import Button from "./button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Content = () => {
   const [result, setResult] = useState("");
-  const [userInput, setUserInput] = useState(
-    "Help me to write a video script that can help showcase the possible use cases for voice assistant in a car"
-  );
+  const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = async () => {
+  const handleSendClick = async () => {
+    if (userInput.length === 0) {
+      toast.error("Please enter a valid query");
+      return;
+    }
+
     setResult("");
     setLoading(true);
-    const response = await fetch("/api/v1", {
+    const response = await fetch("/api/stream/v1", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,9 +53,21 @@ const Content = () => {
     setLoading(false);
   };
 
+  const handleGenerateBlogClick = () => {
+    if (userInput.length === 0) {
+      toast.error("Please enter a valid query");
+      return;
+    }
+
+    router.push("/blog?q=" + userInput);
+  };
+
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-      <div className="min-h-16">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+      {/*
+       ******  GET INPUT & SEND QUERY  ******
+       */}
+      <div className="min-h-16 my-2">
         <textarea
           placeholder="Type your query here..."
           className="textarea textarea-primary shadow-md border-slate-200 w-full"
@@ -57,19 +75,17 @@ const Content = () => {
           value={userInput}
           autoFocus
         ></textarea>
-        <button
-          className="btn btn-primary w-full"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? (
-            <span className="loading loading-dots loading-md"></span>
-          ) : (
-            "Send"
-          )}
-        </button>
+        <Button label="Send" loading={loading} onClick={handleSendClick} />
+        <Button
+          style="btn-secondary"
+          label="Generate a Blog"
+          onClick={handleGenerateBlogClick}
+        />
       </div>
-      <div className="card shadow-md card-bordered border-slate-200 justify-center my-4">
+      {/*
+       ******  CONTENT  ******
+       */}
+      <div className="card shadow-md card-bordered border-slate-200 justify-center my-2">
         {!result && !loading && (
           <div className="flex flex-col items-center gap-8 my-16">
             <Image
