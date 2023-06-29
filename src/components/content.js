@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Button from "./button";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BiSolidCopyAlt } from "react-icons/bi";
 
 const Content = () => {
   const [result, setResult] = useState("");
@@ -158,7 +158,16 @@ const Content = () => {
         )}
 
         {result && (
-          <div className="card-body whitespace-pre-line">{result}</div>
+          <div>
+            <button
+              className="block btn ml-auto m-2 tooltip tooltip-bottom"
+              data-tip="Copy"
+              onClick={() => navigator.clipboard.writeText(result)}
+            >
+              <BiSolidCopyAlt size={20} />
+            </button>
+            <div className="card-body pt-0 whitespace-pre-line">{result}</div>
+          </div>
         )}
       </div>
     </main>
