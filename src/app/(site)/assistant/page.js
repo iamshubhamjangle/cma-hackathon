@@ -62,7 +62,11 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
         disabled={loading}
         onClick={handleSendClick}
       >
-        Get Results
+        {loading ? (
+          <span className="loading loading-dots loading-lg"></span>
+        ) : (
+          "Get Results"
+        )}
       </button>
     </div>
   );
@@ -131,7 +135,7 @@ const Page = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
       <h2 className="text-xl font-mono text-primary font-bold mb-4">
-        / AI Marketing Assistant
+        &gt; AI Marketing Assistant
       </h2>
       <Input
         loading={loading}
@@ -140,7 +144,7 @@ const Page = () => {
         setUserInput={setUserInput}
         setResult={setResult}
       />
-      <div className="h-screen card shadow-md card-bordered border-slate-200 my-2 p-2">
+      <div className="min-h-screen card shadow-md card-bordered border-slate-200 my-2 p-2">
         {!result && !loading && <EmptyContainer />}
         {loading && !result && <LoadingSkeleton />}
         {result && <Result result={result} />}

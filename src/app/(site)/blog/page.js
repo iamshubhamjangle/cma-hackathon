@@ -74,7 +74,11 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
         disabled={loading}
         onClick={handleSendClick}
       >
-        {loading ? "Generating Blog..." : "Generate Blog"}
+        {loading ? (
+          <span className="loading loading-dots loading-lg"></span>
+        ) : (
+          "Generate Blog"
+        )}
       </button>
     </div>
   );
@@ -93,7 +97,7 @@ const Blog = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
       <h2 className="text-xl font-mono text-primary font-bold mb-4">
-        / Blog Generator
+        &gt; Blog Generator
       </h2>
       <Input
         loading={loading}
