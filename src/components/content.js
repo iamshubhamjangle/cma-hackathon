@@ -69,7 +69,7 @@ const Content = () => {
         className="collapse collapse-plus bg-base-200 cursor-pointer"
         onClick={() => setChecked((prev) => !prev)}
       >
-        <input type="radio" checked={checked} />
+        <input type="radio" defaultChecked={checked} />
         <div className="collapse-title font-medium">
           Discover how to use the Application:
         </div>
