@@ -10,7 +10,6 @@ export const runtime = "edge";
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-    const messages = [];
 
     // Check and push User content to messages
     if (reqBody.userContent === undefined) {
@@ -19,6 +18,8 @@ export async function POST(req) {
         error: "userContent is required property!",
       });
     }
+
+    const messages = [];
 
     // Check and push System content to messages
     if (reqBody.systemContent !== undefined) {

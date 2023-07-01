@@ -10,33 +10,30 @@ export const runtime = "edge";
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-    // console.log("reqBody", reqBody);
-    // console.log("typeof(reqBody)", typeof reqBody);
-    // return NextResponse.json("Nice!");
 
-    if (typeof reqBody !== "string")
-      return NextResponse.json("Request body should only be a string!");
+    // Check and push User content to messages
+    if (reqBody.userContent === undefined || reqBody.userContent === "") {
+      return NextResponse.json({
+        status: "failed",
+        error: "userContent is required property!",
+      });
+    }
+
+    const shape = {
+      introduction: "data",
+      body: ["paragraphs"],
+      conclusion: "data",
+    };
 
     const messages = [
       {
         role: "system",
-        content:
-          "You are a blog writer. Your blog must contain a title, introduction, body and conclusion. The result should be strictly in JSON format with title, body as keys in single object.",
+        content: `You are a blog writer. You have to generate a blog with a response shape of ${JSON.stringify(
+          shape
+        )}`,
       },
-      {
-        role: "user",
-        content: "Write a blog post on the latest advancement in AI",
-      },
-      {
-        role: "assistant",
-        content: `{"title":"The Latest Advancement in AI: Unlocking the Potential of Generative Adversarial Networks", "body":"The Power of GANs Firstly: let&apos;s understand the fundamental concept of GANs. GANs are composed of two components: a generator and a discriminator. The generator&apos;s role is to create synthetic data, while the discriminator&apos;s purpose is to assess the authenticity of the generated content. Through a continuous loop of feedback and improvement, GANs enable machines to produce content that is incredibly difficult to distinguish from real human-made content. High-Quality Image Synthesis: One of the most groundbreaking advancements in GANs is in the field of image synthesis. GANs have evolved to the point where they can generate photo-realistic images from scratch. For instance, BigGAN, developed by researchers at Google, has the ability to generate high-resolution images of stunning quality. This has numerous applications in the creative industry, including game design, virtual reality, and even movie production"}`,
-      },
-      { role: "user", content: reqBody },
+      { role: "user", content: reqBody.userContent },
     ];
-
-    // console.log(messages[3]);
-
-    // return NextResponse.json("Nice!");
 
     const payload = {
       model: "gpt-3.5-turbo",

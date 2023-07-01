@@ -1,103 +1,104 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
+import BlogSkeleton from "@/components/skeleton/blog";
+
+const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
+  const handleSendClick = async () => {
+    if (userInput.length === 0) {
+      toast.error("Please enter a valid query");
+      return;
+    }
+
+    setResult("");
+    setLoading(true);
+    const response = await fetch("/api/stream/v2", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userContent: userInput,
+      }),
+    });
+
+    if (!response.ok) {
+      return toast.error(response.statusText);
+    }
+
+    const data = response.body;
+    if (!data) return;
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+
+    let done = false;
+    let intermidiateResult = "";
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      // intermidiateResult = intermidiateResult + chunkValue;
+      setResult((prev) => prev + chunkValue);
+    }
+
+    try {
+      // setResult(JSON.parse(intermidiateResult));
+    } catch (e) {
+      console.info("-----------------intermidiateResult-------------------");
+      console.info(intermidiateResult);
+      console.error(
+        "-----------------Unable to parse the results!-----------------"
+      );
+      console.error(e);
+      toast.error("Unable to parse the results! 🙁");
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-16">
+      <textarea
+        placeholder="Type your query here..."
+        className="textarea border-slate-200 w-full m-0"
+        onChange={(e) => setUserInput(e.target.value)}
+        value={userInput}
+        autoFocus
+      ></textarea>
+      <button
+        className="btn btn-primary btn-block"
+        disabled={loading}
+        onClick={handleSendClick}
+      >
+        Get Results
+      </button>
+    </div>
+  );
+};
 
 const Blog = () => {
   const [loading, setLoading] = useState(false);
+  const [userInput, setUserInput] = useState("");
   const [result, setResult] = useState("");
-  const searchParams = useSearchParams();
-  const search = searchParams.get("q");
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const response = await fetch("/api/stream/v1", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userContent: search,
-        }),
-      });
-
-      if (!response.ok) {
-        return toast.error(response.statusText);
-      }
-
-      const data = response.body;
-      if (!data) return;
-
-      const reader = data.getReader();
-      const decoder = new TextDecoder();
-
-      let done = false;
-
-      while (!done) {
-        const { value, done: doneReading } = await reader.read();
-        done = doneReading;
-        const chunkValue = decoder.decode(value);
-        setResult((prev) => prev + chunkValue);
-      }
-
-      setLoading(false);
-    }
-    // fetchData();
-  }, []);
 
   return (
-    <>
-      {loading && !result && (
-        <>
-          <div
-            role="status"
-            className="max-w-3xl animate-pulse p-12 md:p-6 mx-auto"
-          >
-            <div className="flex items-center my-6 space-x-3">
-              <svg
-                className="text-gray-200 w-14 h-14 dark:text-gray-400"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <div>
-                <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-400 w-32 mb-2" />
-                <div className="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-400 mb-1" />
-                <div className="w-38 h-2 bg-gray-200 rounded-full dark:bg-gray-400" />
-              </div>
-            </div>
-            <div className="flex items-center justify-center h-80 mb-4 bg-gray-300 rounded dark:bg-gray-400">
-              <svg
-                className="w-12 h-12 text-gray-200 dark:text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 640 512"
-              >
-                <path d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z" />
-              </svg>
-            </div>
-            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-400 w-48 mb-4" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400 mb-2.5" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400 mb-2.5" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400 my-2.5" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400 mb-2.5" />
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-400" />
-            <span className="sr-only">Loading...</span>
-          </div>
-        </>
-      )}
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+      <h2 className="text-xl font-mono text-primary font-bold mb-4">
+        / Blog Generator
+      </h2>
+      <Input
+        loading={loading}
+        setLoading={setLoading}
+        userInput={userInput}
+        setUserInput={setUserInput}
+        setResult={setResult}
+      />
+      {loading && !result && <BlogSkeleton />}
+      {JSON.stringify(result)}
       {result && (
         <>
           <main className="pt-8 pb-16 lg:pt-16 lg:pb-24">
@@ -135,9 +136,9 @@ const Blog = () => {
                   {/*
                    ******** BLOG HEADING ********
                    */}
-                  {/* <h1 className="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl">
-                  {search}
-                </h1> */}
+                  <h1 className="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl">
+                    {result.title}
+                  </h1>
                 </header>
                 {/*
                  ******** BLOG BODY ********
@@ -154,7 +155,9 @@ const Blog = () => {
                   </figcaption>
                 </figure>
                 <br />
-                <div className="whitespace-pre-line">{result}</div>
+                <div className="whitespace-pre-line">{result.paragraph1}</div>
+                <div className="whitespace-pre-line">{result.paragraph2}</div>
+                <div className="whitespace-pre-line">{result.conclusion}</div>
                 {/*
                  ********** DISCUSSION & COMMENTS **********
                  */}
@@ -361,7 +364,7 @@ const Blog = () => {
           </section>
         </>
       )}
-    </>
+    </main>
   );
 };
 
