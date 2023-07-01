@@ -58,7 +58,7 @@ const Navbar = () => {
         >
           Public
         </Link> */}
-        <ThemeBtn />
+        {/* <ThemeBtn /> */}
       </>
     );
   };
