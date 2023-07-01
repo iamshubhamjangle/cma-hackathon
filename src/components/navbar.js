@@ -58,6 +58,7 @@ const Navbar = () => {
         >
           Public
         </Link> */}
+        <ThemeBtn />
       </>
     );
   };
@@ -90,7 +91,7 @@ const Navbar = () => {
               {/* Hamburger icon and User Profile */}
               <div ref={profileRef} className="ml-4 flex items-center">
                 <div className="relative">
-                  <div>
+                  {/* <div>
                     <button
                       className="max-w-xs rounded-full flex items-center text-sm m-2"
                       id="user-menu"
@@ -100,7 +101,7 @@ const Navbar = () => {
                       <span className="sr-only">User Menu</span>
                       <BiDotsVerticalRounded size={24} />
                     </button>
-                  </div>
+                  </div> */}
 
                   {/* Dropdown */}
                   {isProfileOpen && (
@@ -171,15 +172,15 @@ const Navbar = () => {
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden bg-base-100">
-          <div className="flex flex-wrap px-2 gap-2">{getLinks()}</div>
-          <div className="px-2 py-3">
+          <div className="flex flex-wrap px-2 gap-2 ml-3">{getLinks()}</div>
+          {/* <div className="px-2 py-3">
             <a
               href="#"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-base-300"
             >
               <ThemeBtn />
             </a>
-          </div>
+          </div> */}
         </div>
       )}
     </nav>

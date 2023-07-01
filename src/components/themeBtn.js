@@ -1,29 +1,38 @@
-import React from "react";
-import { FiMoon } from "react-icons/fi";
-import { BiSun } from "react-icons/bi";
+"use client";
+
+import styles from "./themeBtn.module.css";
+import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 function ThemeBtn() {
   const { theme, setTheme } = useTheme();
+  const [checked, setChecked] = useState(false);
+
+  const toggleTheme = () => {
+    if (theme === "light") setTheme("dark");
+    else setTheme("light");
+  };
+
+  useEffect(() => {
+    theme === "light" ? setChecked(false) : setChecked(true);
+  }, [theme]);
 
   return (
     <div className="flex rounded items-center gap-2">
-      <span>Theme</span>
-      <div className="tooltip tooltip-bottom" data-tip="Light">
-        <button
-          className="btn btn-sm btn-circle"
-          onClick={() => setTheme("light")}
-        >
-          <BiSun />
-        </button>
-      </div>
-      <div className="tooltip tooltip-bottom" data-tip="Dark">
-        <button
-          className="btn btn-sm btn-circle"
-          onClick={() => setTheme("dark")}
-        >
-          <FiMoon />
-        </button>
+      <div>
+        <input
+          checked={checked}
+          type="checkbox"
+          className={styles.checkbox}
+          id="checkbox"
+          onChange={toggleTheme}
+        />
+        <label htmlFor="checkbox" className={styles.checkboxLabel}>
+          <BiSolidMoon color="#f1c40f" />
+          <BiSolidSun color="#f39c12" />
+          <span className={styles.ball}></span>
+        </label>
       </div>
     </div>
   );
