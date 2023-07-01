@@ -126,7 +126,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu
           <div ref={menuRef} className="-mr-2 flex md:hidden">
             <button
               className="inline-flex items-center justify-center p-2 rounded-md"
@@ -165,7 +165,8 @@ const Navbar = () => {
                 </svg>
               )}
             </button>
-          </div>
+          </div> */}
+          <ThemeBtn />
         </div>
       </div>
 
