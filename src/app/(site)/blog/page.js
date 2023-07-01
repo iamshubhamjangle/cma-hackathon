@@ -27,7 +27,6 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
     if (!response.ok) {
       return toast.error(response.statusText);
     }
-
     const data = response.body;
     if (!data) return;
 
@@ -35,7 +34,7 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
     const decoder = new TextDecoder();
 
     let done = false;
-    let intermidiateResult = "";
+    // let intermidiateResult = "";
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
@@ -45,17 +44,17 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
       setResult((prev) => prev + chunkValue);
     }
 
-    try {
-      // setResult(JSON.parse(intermidiateResult));
-    } catch (e) {
-      console.info("-----------------intermidiateResult-------------------");
-      console.info(intermidiateResult);
-      console.error(
-        "-----------------Unable to parse the results!-----------------"
-      );
-      console.error(e);
-      toast.error("Unable to parse the results! 🙁");
-    }
+    // console.info("-----------------intermidiateResult-------------------");
+    // console.info(intermidiateResult);
+
+    // try {
+    //   const parsedJSON = JSON.parse(intermidiateResult);
+    //   console.log(parsedJSON);
+    //   setResult(parsedJSON);
+    // } catch (e) {
+    //   console.error(e);
+    //   toast.error("Unable to parse the results! 🙁");
+    // }
 
     setLoading(false);
   };
@@ -74,7 +73,7 @@ const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
         disabled={loading}
         onClick={handleSendClick}
       >
-        Get Results
+        {loading ? "Generating Blog..." : "Generate Blog"}
       </button>
     </div>
   );
@@ -98,97 +97,84 @@ const Blog = () => {
         setResult={setResult}
       />
       {loading && !result && <BlogSkeleton />}
-      {JSON.stringify(result)}
       {result && (
-        <>
-          <main className="pt-8 pb-16 lg:pt-16 lg:pb-24">
-            <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
-              <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-                <header className="mb-4 lg:mb-6 not-format">
-                  <address className="flex items-center mb-6 not-italic">
-                    <div className="inline-flex items-center mr-3 text-sm">
-                      <Image
-                        className="mr-4 rounded-full"
-                        width={64}
-                        height={64}
-                        src="/user2.png"
-                        alt="Jese Leos"
-                      />
-                      <div>
-                        <a href="#" rel="author" className="text-xl font-bold ">
-                          Your Name
-                        </a>
-                        <p className="text-base font-light">
-                          Software Engineer, Cerence
-                        </p>
-                        <p className="text-base font-light">
-                          <time
-                            pubdate=""
-                            dateTime="2022-02-08"
-                            title="February 8th, 2022"
-                          >
-                            Jun. 30, 2022
-                          </time>
-                        </p>
-                      </div>
-                    </div>
-                  </address>
-                  {/*
-                   ******** BLOG HEADING ********
-                   */}
-                  <h1 className="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl">
+        <div className="card bg-base-100 shadow-2xl my-16 p-8 max-w-3xl mx-auto">
+          <main>
+            <header className="mb-4">
+              <div className="inline-flex items-center text-sm">
+                <Image
+                  className="mr-4 rounded-full"
+                  width={64}
+                  height={64}
+                  src="/user2.png"
+                  alt="Jese Leos"
+                />
+                <div>
+                  <a href="#" rel="author" className="text-xl font-bold ">
+                    Your Name
+                  </a>
+                  <p className="text-base font-light">
+                    Software Engineer, Cerence
+                  </p>
+                  <p className="text-base font-light">
+                    <time
+                      pubdate=""
+                      dateTime="2022-02-08"
+                      title="February 8th, 2022"
+                    >
+                      Jun. 30, 2022
+                    </time>
+                  </p>
+                </div>
+              </div>
+              {/*
+               ******** BLOG HEADING ********
+               */}
+              {/* <h1 className="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl">
                     {result.title}
-                  </h1>
-                </header>
-                {/*
-                 ******** BLOG BODY ********
-                 */}
-                <figure className="my-8">
-                  <Image
-                    src="https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png"
-                    alt=""
-                    width={1280}
-                    height={720}
-                  />
-                  <figcaption className="text-center">
-                    Digital art by AI
-                  </figcaption>
-                </figure>
-                <br />
-                <div className="whitespace-pre-line">{result.paragraph1}</div>
-                <div className="whitespace-pre-line">{result.paragraph2}</div>
-                <div className="whitespace-pre-line">{result.conclusion}</div>
-                {/*
-                 ********** DISCUSSION & COMMENTS **********
-                 */}
-                <section className="my-6">
-                  <div className="flex justify-between items-center mb-2">
-                    <h2 className="text-lg lg:text-2xl font-bold">
-                      Discussion
-                    </h2>
-                  </div>
-                  <form>
-                    <div className="mb-4 rounded-lg rounded-t-lg border border-gray-200-800-700">
-                      <label htmlFor="comment" className="sr-only">
-                        Your comment
-                      </label>
-                      <textarea
-                        id="comment"
-                        rows={6}
-                        className="textarea w-full"
-                        placeholder="Write a comment..."
-                        required=""
-                        defaultValue={""}
-                      />
-                    </div>
-                    <button type="submit" className="btn btn-primary">
-                      Post comment
-                    </button>
-                  </form>
-                </section>
-              </article>
+                  </h1> */}
+            </header>
+            {/*
+             ******** BLOG BODY ********
+             */}
+            <div className="mb-4">
+              <Image
+                src="https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png"
+                alt=""
+                width={1280}
+                height={720}
+              />
+              <p className="text-center">Digital art by AI</p>
+              <br />
+              <div className="whitespace-pre-line">{result}</div>
             </div>
           </main>
+          {/*
+           ********** DISCUSSION & COMMENTS **********
+           */}
+          <section className="my-6">
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-lg lg:text-2xl font-bold">Discussion</h2>
+            </div>
+            <form>
+              <div className="mb-4 rounded-lg rounded-t-lg border border-gray-200-800-700">
+                <label htmlFor="comment" className="sr-only">
+                  Your comment
+                </label>
+                <textarea
+                  id="comment"
+                  rows={6}
+                  className="textarea w-full"
+                  placeholder="Write a comment..."
+                  required=""
+                  defaultValue={""}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Post comment
+              </button>
+            </form>
+          </section>
           {/*
            ********** RELATED ARTICLES **********
            */}
@@ -362,7 +348,7 @@ const Blog = () => {
               </div>
             </div>
           </section>
-        </>
+        </div>
       )}
     </main>
   );

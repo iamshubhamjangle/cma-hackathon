@@ -19,18 +19,12 @@ export async function POST(req) {
       });
     }
 
-    const shape = {
-      introduction: "data",
-      body: ["paragraphs"],
-      conclusion: "data",
-    };
+    // const shape = { title: "", introduction: "", body: "", conclusion: "" };
 
     const messages = [
       {
         role: "system",
-        content: `You are a blog writer. You have to generate a blog with a response shape of ${JSON.stringify(
-          shape
-        )}`,
+        content: `You are a blog writer. You have to generate a blog for the topics sent by user.`,
       },
       { role: "user", content: reqBody.userContent },
     ];
