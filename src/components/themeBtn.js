@@ -12,7 +12,7 @@ function ThemeBtn() {
       <div className="tooltip tooltip-bottom" data-tip="Light">
         <button
           className="btn btn-sm btn-circle"
-          onClick={() => setTheme("mytheme")}
+          onClick={() => setTheme("light")}
         >
           <BiSun />
         </button>

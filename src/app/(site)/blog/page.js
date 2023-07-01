@@ -45,7 +45,7 @@ const Blog = () => {
 
       setLoading(false);
     }
-    fetchData();
+    // fetchData();
   }, []);
 
   return (
