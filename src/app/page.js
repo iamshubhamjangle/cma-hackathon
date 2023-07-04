@@ -10,7 +10,7 @@ export default function Home() {
         <p className="mb-6 text-base md:text-2xl text-slate-400 font-medium">
           Supercharge your marketing strategy with our Next-Generation Marketing
           Assistant, harnessing the latest technologies to drive data-driven
-          insights and boost your brand&apos;s success.
+          insights and boost brand&apos;s success.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 text-left ">
           <Link href="/assistant">
