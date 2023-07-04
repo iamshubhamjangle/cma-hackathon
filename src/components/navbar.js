@@ -72,7 +72,7 @@ const Navbar = () => {
           <Link href="/">
             <div className="flex-shrink-0 flex items-center cursor-pointer">
               <div className="w-8 h-8 relative">
-                <Image src="/logo.png" alt="Logo" fill />
+                <Image src="/logo1.png" alt="Logo" height={28} width={28} />
               </div>
               <span className="text-2xl font-semibold mx-2 sm:hidden">CMA</span>
               <span className="hidden sm:block text-2xl font-semibold mx-2">
