@@ -5,6 +5,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import BlogSkeleton from "@/components/skeleton/blog";
 import { AiOutlineMail } from "react-icons/ai";
+import { BiSolidCopyAlt } from "react-icons/bi";
 
 const Input = ({ loading, setLoading, userInput, setUserInput, setResult }) => {
   const handleSendClick = async () => {
@@ -89,10 +90,24 @@ const Blog = () => {
   const [userInput, setUserInput] = useState("");
   const [result, setResult] = useState("");
   const [date, setDate] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     setDate(new Date().toLocaleString());
   }, []);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setSelectedImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
@@ -269,13 +284,36 @@ const Blog = () => {
             {/*
              ******** BLOG BODY ********
              */}
-            <div className="mb-4">
-              <Image
-                src="https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png"
-                alt=""
-                width={1280}
-                height={720}
+            <p className="text-right">
+              <input
+                id="file"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
               />
+              <label htmlFor="file" className="cursor-pointer py-2">
+                Update Image
+              </label>
+            </p>
+            <div className="mb-4">
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "480px",
+                }}
+              >
+                <Image
+                  src={
+                    selectedImage ||
+                    "https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png"
+                  }
+                  fill
+                  alt=""
+                  style={{ objectFit: "cover", borderRadius: "10px" }} // As per your requirement
+                />
+              </div>
               <p className="text-center">Digital art by AI</p>
               <br />
               <div
